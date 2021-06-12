@@ -47,6 +47,7 @@ class GFButton extends StatefulWidget {
     this.colorScheme,
     this.enableFeedback,
     this.onLongPress,
+    this.onHover,
     this.disabledColor,
     this.disabledTextColor,
   })  : materialTapTargetSize =
@@ -63,6 +64,9 @@ class GFButton extends StatefulWidget {
 
   /// Called by the underlying [InkWell] widget's InkWell.onHighlightChanged callback.
   final ValueChanged<bool>? onHighlightChanged;
+
+  /// Called by the underlying [InkWell] widget's InkWell.onHover callback.
+  final ValueChanged<bool>? onHover;
 
   /// Defines the default text style, with [Material.textStyle], for the button's [child].
   final TextStyle? textStyle;
@@ -232,6 +236,7 @@ class _GFButtonState extends State<GFButton> {
   Widget? child;
   Widget? icon;
   Function? onPressed;
+  ValueChanged<bool>? onHover;
   late GFButtonType type;
   late GFButtonShape shape;
   late double size;
@@ -296,6 +301,9 @@ class _GFButtonState extends State<GFButton> {
     if (_hovered != value) {
       setState(() {
         _updateState(MaterialState.hovered, value);
+        if (widget.onHover != null) {
+          widget.onHover!(value);
+        }
       });
     }
   }
