@@ -28,7 +28,7 @@ class GFToggle extends StatefulWidget {
       this.type,
       this.boxShape,
       this.borderRadius,
-      this.duration = const Duration(milliseconds: 400)})
+      this.duration = const Duration(milliseconds: 200)})
       : super(key: key);
 
   ///type [String] used to add custom text i.e, ON,ENABLE
@@ -136,6 +136,9 @@ class _GFToggleState extends State<GFToggle> with TickerProviderStateMixin {
           Positioned(
             top: 5,
             child: InkWell(
+              highlightColor: GFColors.TRANSPARENT,
+              hoverColor: GFColors.TRANSPARENT,
+              splashColor: GFColors.TRANSPARENT,
               onTap: onStatusChange,
               child: Container(
                 width: widget.type == GFToggleType.ios ? 45 : 36,
@@ -181,6 +184,9 @@ class _GFToggleState extends State<GFToggle> with TickerProviderStateMixin {
             top: widget.type == GFToggleType.ios ? 7.5 : 3,
             left: widget.type == GFToggleType.ios ? 2 : 0,
             child: InkWell(
+              highlightColor: GFColors.TRANSPARENT,
+              hoverColor: GFColors.TRANSPARENT,
+              splashColor: GFColors.TRANSPARENT,
               onTap: onStatusChange,
               child: SlideTransition(
                 position: offset,

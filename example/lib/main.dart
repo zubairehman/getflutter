@@ -31,11 +31,20 @@ class _MyHomePageState extends State<MyHomePage> {
         // backgroundColor: GFColors.DARK,
         body: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: <Widget>[_buildButtons(), _buildAccordion()],
+          children: <Widget>[_buildButtons(), _buildAccordion(), _buildRadio()],
         ),
       );
 
   // general methods:-----------------------------------------------------------
+  Widget _buildRadio() => SizedBox(
+        width: 10,
+        child: GFToggle(
+          onChanged: (val) {},
+          value: false,
+          type: GFToggleType.ios,
+        ),
+      );
+
   Widget _buildAccordion() => GFAccordion(
         title: 'Title goes here',
         content: 'Content goes here but its a String and i dont like it. '
