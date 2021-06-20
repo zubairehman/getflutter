@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:getwidget/getwidget.dart';
+import 'package:getwidget/types/gf_divider_type.dart';
 
 class GFTypography extends StatelessWidget {
   /// Creates simple title with underline. Style of title can be changed using [GFTypographyType]
@@ -16,8 +17,10 @@ class GFTypography extends StatelessWidget {
     this.dividerColor,
     this.showDivider = true,
     this.dividerWidth,
+    this.dividerHeight,
     this.backgroundImage,
-    this.backgroundImagecolorFilter,
+    this.backgroundImageColorFilter,
+    this.dividerType = GFDividerType.left,
   })  : assert(text != null || child != null),
         super(key: key);
 
@@ -48,19 +51,27 @@ class GFTypography extends StatelessWidget {
   ///pass [double] type to increase or decrease the width of the divider
   final double? dividerWidth;
 
+  ///pass [double] type to increase or decrease the height of the divider
+  final double? dividerHeight;
+
   ///backgroundImage of type [ImageProvider] to set the background of [GFTypography]
   final ImageProvider? backgroundImage;
 
   ///backgroundImagecolorFilter of type [ColorFilter] to set the
   ///background color of [GFTypography] only when backgroundImage is available
-  final ColorFilter? backgroundImagecolorFilter;
+  final ColorFilter? backgroundImageColorFilter;
 
   /// header type of [GFTypographyType] i.e, typo1, typo2, typo3, typo4, typo5, typo6
   final GFTypographyType type;
 
+  /// divider type of [GFDividerType] i.e, left, bottom
+  final GFDividerType dividerType;
+
   @override
   Widget build(BuildContext context) {
     double? fontSize;
+    double? dWidth;
+    double? dHeight;
 
     if (type == GFTypographyType.typo1) {
       fontSize = 25.0;
@@ -76,6 +87,14 @@ class GFTypography extends StatelessWidget {
       fontSize = 13.0;
     }
 
+    if (dividerType == GFDividerType.left) {
+      dWidth = dividerWidth != null ? dividerWidth : 5;
+      dHeight = dividerHeight != null ? dividerHeight : 28;
+    } else if (dividerType == GFDividerType.bottom) {
+      dWidth = dividerWidth != null ? dividerWidth : 70;
+      dHeight = dividerHeight != null ? dividerHeight : 5;
+    }
+
     return Container(
       padding: EdgeInsets.all(backgroundImage != null ? 10 : 0),
       decoration: BoxDecoration(
@@ -83,59 +102,76 @@ class GFTypography extends StatelessWidget {
             ? DecorationImage(
                 image: backgroundImage!,
                 fit: BoxFit.cover,
-                colorFilter: backgroundImagecolorFilter ??
+                colorFilter: backgroundImageColorFilter ??
                     const ColorFilter.mode(Colors.black54, BlendMode.darken),
               )
             : null,
       ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          Row(
-            children: <Widget>[
-              icon ?? Container(),
-              icon != null
-                  ? const Padding(padding: EdgeInsets.only(left: 10))
-                  : Container(),
-              text != null
-                  ? Expanded(
-                      child: Text(
-                        text!,
-                        style: TextStyle(
-                            color: textColor ??
-                                (backgroundImage != null
-                                    ? Colors.white
-                                    : Colors.black),
-                            fontSize: fontSize,
-                            letterSpacing: 0.3,
-                            fontWeight: FontWeight.w500),
-                      ),
-                    )
-                  : child!
-            ],
-          ),
-          showDivider && fontSize != null
-              ? Container(
-                  margin: const EdgeInsets.only(top: 3, bottom: 3),
-                  alignment: dividerAlignment,
-                  child: Container(
-                    width: dividerWidth != null ? dividerWidth : 70,
-                    height: fontSize / 5,
-                    decoration: BoxDecoration(
-                      color: dividerColor ??
-                          (backgroundImage != null
-                              ? Colors.white
-                              : Colors.black),
-                      borderRadius: dividerBorderRadius ??
-                          const BorderRadius.all(
-                            Radius.circular(5),
-                          ),
-                    ),
-                  ),
-                )
-              : Container()
-        ],
+      child: Padding(
+        padding: const EdgeInsets.only(top: 16),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            Row(
+              children: <Widget>[
+                dividerType == GFDividerType.left
+                    ? _buildHeadingDivider(dWidth, dHeight)
+                    : Container(),
+                _buildIcon(),
+                _buildPadding(),
+                _buildText(fontSize),
+              ],
+            ),
+            dividerType == GFDividerType.bottom
+                ? _buildHeadingDivider(dWidth, dHeight)
+                : Container(),
+            _buildDivider()
+          ],
+        ),
       ),
     );
   }
+
+  Widget _buildText(double? fontSize) => text != null
+      ? Expanded(
+          child: Text(
+            text!,
+            style: TextStyle(
+                color: textColor ??
+                    (backgroundImage != null ? Colors.white : Colors.black),
+                fontSize: fontSize,
+                letterSpacing: 0.3,
+                fontWeight: FontWeight.w500),
+          ),
+        )
+      : child!;
+
+  Widget _buildPadding() => icon != null
+      ? const Padding(padding: EdgeInsets.only(left: 10))
+      : Container();
+
+  Widget _buildHeadingDivider(double? width, double? height) => showDivider
+      ? Container(
+          margin: const EdgeInsets.only(right: 16, top: 3, bottom: 3),
+          alignment: dividerAlignment,
+          child: Container(
+            width: width,
+            height: height,
+            decoration: BoxDecoration(
+              color: dividerColor ??
+                  (backgroundImage != null ? Colors.white : Colors.black),
+              borderRadius: dividerBorderRadius ??
+                  const BorderRadius.all(
+                    Radius.circular(5),
+                  ),
+            ),
+          ),
+        )
+      : Container();
+
+  Widget _buildIcon() => icon ?? Container();
+
+  Widget _buildDivider() => dividerType == GFDividerType.left
+      ? const Divider(height: 32)
+      : Container();
 }

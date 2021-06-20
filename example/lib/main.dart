@@ -31,11 +31,28 @@ class _MyHomePageState extends State<MyHomePage> {
         // backgroundColor: GFColors.DARK,
         body: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: <Widget>[_buildButtons(), _buildAccordion(), _buildRadio()],
+          children: <Widget>[
+            _buildButtons(),
+            _buildAccordion(),
+            _buildTypography(),
+            _buildRadio(),
+          ],
         ),
       );
 
   // general methods:-----------------------------------------------------------
+  Widget _buildTypography() => const GFTypography(
+        text: 'GF Header Typo1',
+        type: GFTypographyType.typo1,
+        showDivider: true,
+        dividerAlignment: Alignment.centerLeft,
+        dividerType: GFDividerType.bottom,
+        dividerColor: GFColors.PRIMARY,
+        dividerBorderRadius: BorderRadius.all(
+          Radius.circular(0),
+        ),
+      );
+
   Widget _buildRadio() => SizedBox(
         width: 10,
         child: GFToggle(

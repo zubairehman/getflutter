@@ -80,7 +80,7 @@ void main() {
       showDivider: divider,
       icon: icon,
       backgroundImage: bgImage,
-      backgroundImagecolorFilter: colorfilter,
+      backgroundImageColorFilter: colorfilter,
       text: 'type1',
     );
 
@@ -90,7 +90,7 @@ void main() {
     expect(app.typography.showDivider, divider);
     expect(app.typography.icon, icon);
     expect(app.typography.backgroundImage, bgImage);
-    expect(app.typography.backgroundImagecolorFilter, colorfilter);
+    expect(app.typography.backgroundImageColorFilter, colorfilter);
   });
 }
 
