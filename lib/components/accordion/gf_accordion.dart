@@ -93,6 +93,10 @@ class _GFAccordionState extends State<GFAccordion>
   late AnimationController controller;
   late Animation<Offset> offset;
   late bool showAccordion;
+  double _contentHeight = 0;
+  double _height = 0;
+  bool _isOffstage = false;
+  GlobalKey<State<StatefulWidget>> widgetKey = GlobalKey();
 
   @override
   void initState() {
@@ -110,6 +114,14 @@ class _GFAccordionState extends State<GFAccordion>
         curve: Curves.fastOutSlowIn,
       ),
     );
+    WidgetsBinding.instance!.addPostFrameCallback((_) {
+      _contentHeight = _getContentHeight().height;
+      print('content height: $_contentHeight');
+
+      setState(() {
+        _isOffstage = true;
+      });
+    });
     super.initState();
   }
 
@@ -150,34 +162,49 @@ class _GFAccordionState extends State<GFAccordion>
                 ),
               ),
             ),
-            showAccordion
-                ? Container(
-                    decoration: BoxDecoration(
-                      borderRadius: widget.contentBorderRadius,
-                      border: widget.contentBorder,
-                      color: widget.contentBackgroundColor ?? Colors.white70,
-                    ),
-                    width: MediaQuery.of(context).size.width,
-                    padding: widget.contentPadding,
-                    child: SlideTransition(
-                      position: offset,
-                      child: widget.content != null
-                          ? Text(widget.content!)
-                          : (widget.contentChild ?? Container()),
-                    ))
-                : Container()
+            AnimatedContainer(
+              decoration: BoxDecoration(
+                borderRadius: widget.contentBorderRadius,
+                border: widget.contentBorder,
+                color: widget.contentBackgroundColor ?? Colors.white70,
+              ),
+              width: MediaQuery.of(context).size.width,
+              height: _height,
+              padding: widget.contentPadding,
+              duration: const Duration(milliseconds: 300),
+              curve: Curves.fastOutSlowIn,
+              child: SlideTransition(
+                position: offset,
+                child: widget.content != null
+                    ? Text(widget.content!)
+                    : (widget.contentChild ?? Container()),
+              ),
+            ),
+            Offstage(
+              key: widgetKey,
+              offstage: _isOffstage,
+              child: widget.content != null
+                  ? Text(widget.content!)
+                  : (widget.contentChild ?? Container()),
+            ),
           ],
         ),
       );
 
   void _toggleCollapsed() {
+    if (_contentHeight == 0) {
+      _contentHeight = _getContentHeight().height;
+    }
+
     setState(() {
       switch (controller.status) {
         case AnimationStatus.completed:
-          controller.forward(from: 0);
+          controller.reverse();
+          _height = 0;
           break;
         case AnimationStatus.dismissed:
           controller.forward();
+          _height = _contentHeight + widget.contentPadding.vertical;
           break;
         default:
       }
@@ -186,5 +213,21 @@ class _GFAccordionState extends State<GFAccordion>
         widget.onToggleCollapsed!(showAccordion);
       }
     });
+  }
+
+  TextPainter getTextSize(String text, TextStyle style) {
+    final TextPainter textPainter = TextPainter()
+      ..text = TextSpan(text: text, style: style)
+      ..textDirection = TextDirection.ltr
+      ..layout(minWidth: 0, maxWidth: double.infinity);
+
+    return textPainter;
+  }
+
+  Size _getContentHeight() {
+    final RenderBox renderBox =
+        widgetKey.currentContext!.findRenderObject()! as RenderBox;
+    _contentHeight = renderBox.size.height;
+    return renderBox.size;
   }
 }
