@@ -89,7 +89,7 @@ class GFTypography extends StatelessWidget {
 
     if (dividerType == GFDividerType.left) {
       dWidth = dividerWidth != null ? dividerWidth : 5;
-      dHeight = dividerHeight != null ? dividerHeight : 28;
+      dHeight = dividerHeight != null ? dividerHeight : 24;
     } else if (dividerType == GFDividerType.bottom) {
       dWidth = dividerWidth != null ? dividerWidth : 70;
       dHeight = dividerHeight != null ? dividerHeight : 5;

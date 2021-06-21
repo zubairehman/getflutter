@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
 import 'package:getwidget/getwidget.dart';
 
 /// A material design card. A card has slightly rounded corners and a shadow.
@@ -12,31 +11,33 @@ class GFCard extends StatelessWidget {
   ///
   /// The [elevation] must be null or non-negative. The [borderOnForeground]
   /// must not be null.
-  const GFCard(
-      {Key? key,
-      this.color,
-      this.elevation,
-      this.shape,
-      this.borderOnForeground = true,
-      this.padding = const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-      this.margin,
-      this.clipBehavior,
-      this.semanticContainer,
-      this.title,
-      this.content,
-      this.image,
-      this.showImage = false,
-      this.showOverlayImage = false,
-      this.buttonBar,
-      this.imageOverlay,
-      this.titlePosition,
-      this.borderRadius,
-      this.border,
-      this.boxFit,
-      this.colorFilter,
-      this.height,
-      this.gradient})
-      : assert(elevation == null || elevation >= 0.0),
+  const GFCard({
+    Key? key,
+    this.color,
+    this.elevation,
+    this.shape,
+    this.borderOnForeground = true,
+    this.padding = const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+    this.margin,
+    this.clipBehavior,
+    this.semanticContainer,
+    this.title,
+    this.content,
+    this.image,
+    this.showImage = false,
+    this.showOverlayImage = false,
+    this.buttonBar,
+    this.imageOverlay,
+    this.titlePosition,
+    this.borderRadius,
+    this.border,
+    this.boxFit,
+    this.colorFilter,
+    this.height,
+    this.gradient,
+    this.heading,
+    this.crossAxisAlignment = CrossAxisAlignment.center,
+  })  : assert(elevation == null || elevation >= 0.0),
         assert(
             color == null || gradient == null,
             'Cannot provide both a color and a decoration\n'
@@ -112,6 +113,12 @@ class GFCard extends StatelessWidget {
   /// defines the gradient background
   final LinearGradient? gradient;
 
+  /// defines the heading of the card
+  final GFTypography? heading;
+
+  /// defines the alignment of the content
+  final CrossAxisAlignment crossAxisAlignment;
+
   static const double _defaultElevation = 1;
   static const Clip _defaultClipBehavior = Clip.none;
 
@@ -122,7 +129,9 @@ class GFCard extends StatelessWidget {
     final Widget cardChild = Padding(
       padding: padding,
       child: Column(
+        crossAxisAlignment: crossAxisAlignment,
         children: <Widget>[
+          heading ?? Container(),
           titlePosition == GFPosition.start
               ? title ?? Container()
               : showImage != false

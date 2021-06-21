@@ -32,21 +32,30 @@ class _MyHomePageState extends State<MyHomePage> {
         body: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
-            _buildButtons(),
+            _buildButtonsWithCard(),
             _buildAccordion(),
             _buildTypography(),
             _buildRadio(),
+            _buildCard()
           ],
         ),
       );
 
   // general methods:-----------------------------------------------------------
-  Widget _buildTypography() => const GFTypography(
+  Widget _buildCard() => GFCard(
+        padding: const EdgeInsets.all(0),
+        margin: const EdgeInsets.all(8),
+        content: _buildButtons(),
+        heading: _buildTypography(),
+        crossAxisAlignment: CrossAxisAlignment.start,
+      );
+
+  GFTypography _buildTypography() => const GFTypography(
         text: 'GF Header Typo1',
-        type: GFTypographyType.typo1,
+        type: GFTypographyType.typo4,
         showDivider: true,
         dividerAlignment: Alignment.centerLeft,
-        dividerType: GFDividerType.bottom,
+        dividerType: GFDividerType.left,
         dividerColor: GFColors.PRIMARY,
         dividerBorderRadius: BorderRadius.all(
           Radius.circular(0),
@@ -67,8 +76,7 @@ class _MyHomePageState extends State<MyHomePage> {
         content: 'Content goes here but its a String and i dont like it. '
             'Content goes here but its a String and i dont like it. '
             'Content goes here but its a String and i dont like it. '
-            'Content goes here but its a String and i dont like it. '
-            'Content goes here but its a String and i dont like it. Content goes here but its a String and i dont like it.',
+            ' Content goes here but its a String and i dont like it.',
         collapsedIcon: const Icon(Icons.add),
         expandedIcon: const Icon(Icons.zoom_out_sharp),
         collapsedTitleBackgroundColor: GFColors.DANGER,
@@ -79,95 +87,98 @@ class _MyHomePageState extends State<MyHomePage> {
         showAccordion: true,
       );
 
-  Widget _buildButtons() => Card(
-        child: Wrap(
-          crossAxisAlignment: WrapCrossAlignment.center,
-          children: <Widget>[
-            GFButton(
-              size: GFSize.LARGE,
-              text: 'Primary',
-              color: GFColors.PRIMARY,
-              onPressed: () {},
+  Widget _buildButtonsWithCard() => Card(
+        child: _buildButtons(),
+      );
+
+  Widget _buildButtons() => Wrap(
+        crossAxisAlignment: WrapCrossAlignment.start,
+        alignment: WrapAlignment.start,
+        children: <Widget>[
+          GFButton(
+            size: GFSize.LARGE,
+            text: 'Primary',
+            color: GFColors.PRIMARY,
+            onPressed: () {},
+          ),
+          const SizedBox(width: 8),
+          GFButton(
+            size: GFSize.LARGE,
+            text: 'Secondary',
+            color: GFColors.SECONDARY,
+            onPressed: () {},
+          ),
+          const SizedBox(width: 8),
+          GFButton(
+            size: GFSize.LARGE,
+            text: 'Success',
+            color: GFColors.SUCCESS,
+            onPressed: () {},
+          ),
+          const SizedBox(width: 8),
+          GFButton(
+            size: GFSize.LARGE,
+            text: 'Danger',
+            color: GFColors.DANGER,
+            onPressed: () {},
+          ),
+          const SizedBox(width: 8),
+          GFButton(
+            size: GFSize.LARGE,
+            text: 'Warning',
+            color: GFColors.WARNING,
+            onPressed: () {},
+          ),
+          const SizedBox(width: 8),
+          GFButton(
+            size: GFSize.LARGE,
+            text: 'Info',
+            color: GFColors.INFO,
+            onPressed: () {},
+          ),
+          const SizedBox(width: 8),
+          GFButton(
+            size: GFSize.LARGE,
+            text: 'Light',
+            color: GFColors.LIGHT,
+            textStyle: const TextStyle(color: GFColors.DARK),
+            onPressed: () {},
+          ),
+          const SizedBox(width: 8),
+          GFButton(
+            size: GFSize.LARGE,
+            text: 'Dark',
+            color: GFColors.DARK,
+            onPressed: () {},
+          ),
+          const SizedBox(width: 8),
+          GFButton(
+            size: GFSize.LARGE,
+            buttonBoxShadow: false,
+            hoverColor: GFColors.TRANSPARENT,
+            hoverElevation: 0,
+            elevation: 0,
+            enableFeedback: true,
+            // highlightColor: GFColors.PRIMARY,
+            textStyle: TextStyle(
+              color: isHovered && !kIsWeb ? GFColors.WHITE : GFColors.PRIMARY,
+              decoration:
+                  isHovered ? TextDecoration.underline : TextDecoration.none,
             ),
-            const SizedBox(width: 8),
-            GFButton(
-              size: GFSize.LARGE,
-              text: 'Secondary',
-              color: GFColors.SECONDARY,
-              onPressed: () {},
-            ),
-            const SizedBox(width: 8),
-            GFButton(
-              size: GFSize.LARGE,
-              text: 'Success',
-              color: GFColors.SUCCESS,
-              onPressed: () {},
-            ),
-            const SizedBox(width: 8),
-            GFButton(
-              size: GFSize.LARGE,
-              text: 'Danger',
-              color: GFColors.DANGER,
-              onPressed: () {},
-            ),
-            const SizedBox(width: 8),
-            GFButton(
-              size: GFSize.LARGE,
-              text: 'Warning',
-              color: GFColors.WARNING,
-              onPressed: () {},
-            ),
-            const SizedBox(width: 8),
-            GFButton(
-              size: GFSize.LARGE,
-              text: 'Info',
-              color: GFColors.INFO,
-              onPressed: () {},
-            ),
-            const SizedBox(width: 8),
-            GFButton(
-              size: GFSize.LARGE,
-              text: 'Light',
-              color: GFColors.LIGHT,
-              textStyle: const TextStyle(color: GFColors.DARK),
-              onPressed: () {},
-            ),
-            const SizedBox(width: 8),
-            GFButton(
-              size: GFSize.LARGE,
-              text: 'Dark',
-              color: GFColors.DARK,
-              onPressed: () {},
-            ),
-            const SizedBox(width: 8),
-            GFButton(
-              size: GFSize.LARGE,
-              buttonBoxShadow: false,
-              hoverColor: GFColors.TRANSPARENT,
-              hoverElevation: 0,
-              elevation: 0,
-              enableFeedback: true,
-              // highlightColor: GFColors.PRIMARY,
-              textStyle: TextStyle(
-                color: isHovered && !kIsWeb ? GFColors.WHITE : GFColors.PRIMARY,
-                decoration:
-                    isHovered ? TextDecoration.underline : TextDecoration.none,
-              ),
-              onHover: (value) {
-                setState(() {
-                  isHovered = value;
-                });
-              },
-              onHighlightChanged: (value) {
-                setState(() {
-                  isHovered = value;
-                });
-              },
-              text: 'Link',
-              type: GFButtonType.transparent,
-              onPressed: () {},
-            ),
-          ],
-        ),
+            onHover: (value) {
+              setState(() {
+                isHovered = value;
+              });
+            },
+            onHighlightChanged: (value) {
+              setState(() {
+                isHovered = value;
+              });
+            },
+            text: 'Link',
+            type: GFButtonType.transparent,
+            onPressed: () {},
+          ),
+        ],
       );
 }
