@@ -9,10 +9,12 @@ class GFTypography extends StatelessWidget {
     Key? key,
     this.type = GFTypographyType.typo4,
     this.child,
-    required this.text,
+    required this.heading,
+    this.subHeading,
     this.icon,
     this.dividerBorderRadius,
-    this.textColor,
+    this.headingColor,
+    this.subHeadingColor,
     this.dividerAlignment,
     this.dividerColor,
     this.showDivider = true,
@@ -21,14 +23,17 @@ class GFTypography extends StatelessWidget {
     this.backgroundImage,
     this.backgroundImageColorFilter,
     this.dividerType = GFDividerPosition.left,
-  })  : assert(text != null || child != null),
+  })  : assert(heading != null || child != null),
         super(key: key);
 
   /// child of  type [Widget] is alternative to text key. text will get priority over child
   final Widget? child;
 
   /// text of type [String] is alternative to child. text will get priority over child
-  final String? text;
+  final String? heading;
+
+  /// text of type [String] is alternative to child. text will get priority over child
+  final String? subHeading;
 
   ///icon of type [Widget] used to pass icon or image
   final Widget? icon;
@@ -37,7 +42,10 @@ class GFTypography extends StatelessWidget {
   final Color? dividerColor;
 
   /// Pass [GFColors] or [Color] for textColor
-  final Color? textColor;
+  final Color? headingColor;
+
+  /// Pass [GFColors] or [Color] for textColor
+  final Color? subHeadingColor;
 
   /// dividerBorderRadius of type [BorderRadius] to alter the radius of the divider
   final BorderRadius? dividerBorderRadius;
@@ -119,9 +127,10 @@ class GFTypography extends StatelessWidget {
                     : Container(),
                 _buildIcon(),
                 _buildPadding(),
-                _buildText(fontSize),
+                _buildHeading(fontSize),
               ],
             ),
+            _buildSubHeading(fontSize),
             dividerType == GFDividerPosition.bottom
                 ? _buildHeadingDivider(dWidth, dHeight)
                 : Container(),
@@ -132,12 +141,12 @@ class GFTypography extends StatelessWidget {
     );
   }
 
-  Widget _buildText(double? fontSize) => text != null
+  Widget _buildHeading(double? fontSize) => heading != null
       ? Expanded(
           child: Text(
-            text!,
+            heading!,
             style: TextStyle(
-                color: textColor ??
+                color: headingColor ??
                     (backgroundImage != null ? Colors.white : Colors.black),
                 fontSize: fontSize,
                 letterSpacing: 0.3,
@@ -145,6 +154,20 @@ class GFTypography extends StatelessWidget {
           ),
         )
       : child!;
+
+  Widget _buildSubHeading(double? fontSize) => subHeading != null
+      ? Expanded(
+          child: Text(
+            subHeading!,
+            style: TextStyle(
+                color: subHeadingColor ??
+                    (backgroundImage != null ? Colors.white : Colors.black),
+                fontSize: fontSize,
+                letterSpacing: 0.3,
+                fontWeight: FontWeight.w500),
+          ),
+        )
+      : Container();
 
   Widget _buildPadding() => icon != null
       ? const Padding(padding: EdgeInsets.only(left: 10))

@@ -19,8 +19,8 @@ void main() {
     final GFTypography typography = GFTypography(
       icon: icon,
       dividerBorderRadius: dividerRadius,
-      text: text,
-      textColor: textcolor,
+      heading: text,
+      headingColor: textcolor,
       dividerAlignment: dividerposition,
       type: GFTypographyType.typo2,
       child: childWidget,
@@ -37,14 +37,14 @@ void main() {
     expect(app.typography.icon, icon);
     expect(app.typography.dividerAlignment, Alignment.center);
     expect(app.typography.dividerBorderRadius, dividerRadius);
-    expect(app.typography.textColor, textcolor);
+    expect(app.typography.headingColor, textcolor);
   });
 
   testWidgets('GF Typography with divider', (tester) async {
     const bool divider = true;
 
     const GFTypography typography = GFTypography(
-      text: 'type 1',
+      heading: 'type 1',
       showDivider: divider,
     );
 
@@ -57,13 +57,13 @@ void main() {
     final textopacity = Colors.black.withOpacity(0.56);
 
     final GFTypography typography = GFTypography(
-      text: 'type1',
-      textColor: textopacity,
+      heading: 'type1',
+      headingColor: textopacity,
     );
 
     final TestApp app = TestApp(typography);
 
-    expect(app.typography.textColor, textopacity);
+    expect(app.typography.headingColor, textopacity);
   });
 
   testWidgets('GF Typography with Custom Heading', (tester) async {
@@ -76,17 +76,17 @@ void main() {
     );
 
     final GFTypography typography = GFTypography(
-      textColor: textopacity,
+      headingColor: textopacity,
       showDivider: divider,
       icon: icon,
       backgroundImage: bgImage,
       backgroundImageColorFilter: colorfilter,
-      text: 'type1',
+      heading: 'type1',
     );
 
     final TestApp app = TestApp(typography);
 
-    expect(app.typography.textColor, textopacity);
+    expect(app.typography.headingColor, textopacity);
     expect(app.typography.showDivider, divider);
     expect(app.typography.icon, icon);
     expect(app.typography.backgroundImage, bgImage);
