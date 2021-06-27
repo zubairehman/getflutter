@@ -148,7 +148,7 @@ class GFCard extends StatelessWidget {
                   : Container()
               : title ?? Container(),
           Padding(
-            padding: padding,
+            padding: const EdgeInsets.symmetric(horizontal: 12),
             child: content ?? Container(),
           ),
           buttonBar ?? Container(),

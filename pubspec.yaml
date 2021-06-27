@@ -10,6 +10,11 @@ dependencies:
   flutter:
     sdk: flutter
 
+  syncfusion_flutter_datagrid: ^19.1.69-beta
+  syncfusion_flutter_core: ^19.1.69
+
+  intl: ^0.17.0
+
 dev_dependencies:
   flutter_test:
     sdk: flutter

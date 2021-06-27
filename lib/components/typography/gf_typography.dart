@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:getwidget/getwidget.dart';
-import 'package:getwidget/types/gf_divider_type.dart';
+import 'package:getwidget/position/gf_divider_position.dart';
 
 class GFTypography extends StatelessWidget {
   /// Creates simple title with underline. Style of title can be changed using [GFTypographyType]
@@ -20,7 +20,7 @@ class GFTypography extends StatelessWidget {
     this.dividerHeight,
     this.backgroundImage,
     this.backgroundImageColorFilter,
-    this.dividerType = GFDividerType.left,
+    this.dividerType = GFDividerPosition.left,
   })  : assert(text != null || child != null),
         super(key: key);
 
@@ -64,8 +64,8 @@ class GFTypography extends StatelessWidget {
   /// header type of [GFTypographyType] i.e, typo1, typo2, typo3, typo4, typo5, typo6
   final GFTypographyType type;
 
-  /// divider type of [GFDividerType] i.e, left, bottom
-  final GFDividerType dividerType;
+  /// divider type of [GFDividerPosition] i.e, left, bottom
+  final GFDividerPosition dividerType;
 
   @override
   Widget build(BuildContext context) {
@@ -87,10 +87,10 @@ class GFTypography extends StatelessWidget {
       fontSize = 13.0;
     }
 
-    if (dividerType == GFDividerType.left) {
+    if (dividerType == GFDividerPosition.left) {
       dWidth = dividerWidth != null ? dividerWidth : 5;
       dHeight = dividerHeight != null ? dividerHeight : 24;
-    } else if (dividerType == GFDividerType.bottom) {
+    } else if (dividerType == GFDividerPosition.bottom) {
       dWidth = dividerWidth != null ? dividerWidth : 70;
       dHeight = dividerHeight != null ? dividerHeight : 5;
     }
@@ -114,7 +114,7 @@ class GFTypography extends StatelessWidget {
           children: <Widget>[
             Row(
               children: <Widget>[
-                dividerType == GFDividerType.left
+                dividerType == GFDividerPosition.left
                     ? _buildHeadingDivider(dWidth, dHeight)
                     : Container(),
                 _buildIcon(),
@@ -122,7 +122,7 @@ class GFTypography extends StatelessWidget {
                 _buildText(fontSize),
               ],
             ),
-            dividerType == GFDividerType.bottom
+            dividerType == GFDividerPosition.bottom
                 ? _buildHeadingDivider(dWidth, dHeight)
                 : Container(),
             _buildDivider()
@@ -171,7 +171,7 @@ class GFTypography extends StatelessWidget {
 
   Widget _buildIcon() => icon ?? Container();
 
-  Widget _buildDivider() => dividerType == GFDividerType.left
+  Widget _buildDivider() => dividerType == GFDividerPosition.left
       ? const Divider(height: 32)
       : Container();
 }
