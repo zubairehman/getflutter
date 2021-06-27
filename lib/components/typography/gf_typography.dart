@@ -77,22 +77,37 @@ class GFTypography extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    double? fontSize;
+    double? headingFontSize;
+    double? subHeadingFontSize;
     double? dWidth;
     double? dHeight;
 
     if (type == GFTypographyType.typo1) {
-      fontSize = 25.0;
+      headingFontSize = 25.0;
     } else if (type == GFTypographyType.typo2) {
-      fontSize = 22.0;
+      headingFontSize = 22.0;
     } else if (type == GFTypographyType.typo3) {
-      fontSize = 19.0;
+      headingFontSize = 19.0;
     } else if (type == GFTypographyType.typo4) {
-      fontSize = 17.0;
+      headingFontSize = 17.0;
     } else if (type == GFTypographyType.typo5) {
-      fontSize = 15.0;
+      headingFontSize = 15.0;
     } else if (type == GFTypographyType.typo6) {
-      fontSize = 13.0;
+      headingFontSize = 13.0;
+    }
+
+    if (type == GFTypographyType.typo1) {
+      subHeadingFontSize = 15.0;
+    } else if (type == GFTypographyType.typo2) {
+      subHeadingFontSize = 14.0;
+    } else if (type == GFTypographyType.typo3) {
+      subHeadingFontSize = 13.0;
+    } else if (type == GFTypographyType.typo4) {
+      subHeadingFontSize = 12.0;
+    } else if (type == GFTypographyType.typo5) {
+      subHeadingFontSize = 11.0;
+    } else if (type == GFTypographyType.typo6) {
+      subHeadingFontSize = 10.0;
     }
 
     if (dividerType == GFDividerPosition.left) {
@@ -127,10 +142,10 @@ class GFTypography extends StatelessWidget {
                     : Container(),
                 _buildIcon(),
                 _buildPadding(),
-                _buildHeading(fontSize),
+                _buildHeading(headingFontSize),
               ],
             ),
-            _buildSubHeading(fontSize),
+            _buildSubHeading(subHeadingFontSize),
             dividerType == GFDividerPosition.bottom
                 ? _buildHeadingDivider(dWidth, dHeight)
                 : Container(),
@@ -143,20 +158,24 @@ class GFTypography extends StatelessWidget {
 
   Widget _buildHeading(double? fontSize) => heading != null
       ? Expanded(
-          child: Text(
-            heading!,
-            style: TextStyle(
-                color: headingColor ??
-                    (backgroundImage != null ? Colors.white : Colors.black),
-                fontSize: fontSize,
-                letterSpacing: 0.3,
-                fontWeight: FontWeight.w500),
+          child: Padding(
+            padding: EdgeInsets.only(left: 16),
+            child: Text(
+              heading!,
+              style: TextStyle(
+                  color: headingColor ??
+                      (backgroundImage != null ? Colors.white : Colors.black),
+                  fontSize: fontSize,
+                  letterSpacing: 0.3,
+                  fontWeight: FontWeight.w500),
+            ),
           ),
         )
       : child!;
 
   Widget _buildSubHeading(double? fontSize) => subHeading != null
-      ? Expanded(
+      ? Padding(
+          padding: EdgeInsets.only(left: 22),
           child: Text(
             subHeading!,
             style: TextStyle(
@@ -175,7 +194,7 @@ class GFTypography extends StatelessWidget {
 
   Widget _buildHeadingDivider(double? width, double? height) => showDivider
       ? Container(
-          margin: const EdgeInsets.only(right: 16, top: 3, bottom: 3),
+          margin: const EdgeInsets.symmetric(vertical: 3),
           alignment: dividerAlignment,
           child: Container(
             width: width,
