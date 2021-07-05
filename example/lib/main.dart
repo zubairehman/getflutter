@@ -1,5 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:getwidget/components/text_field/gf_text_field_header.dart';
+import 'package:getwidget/components/text_field/gf_text_fields.dart';
 import 'package:getwidget/getwidget.dart';
 
 void main() => runApp(MyApp());
@@ -36,7 +38,8 @@ class _MyHomePageState extends State<MyHomePage> {
             _buildAccordion(),
             _buildTypography(),
             _buildRadio(),
-            _buildCard()
+            _buildCard(),
+            _buildTextField()
           ],
         ),
       );
@@ -51,16 +54,19 @@ class _MyHomePageState extends State<MyHomePage> {
       );
 
   GFTypography _buildTypography() => const GFTypography(
-        text: 'GF Header Typo1',
+
         type: GFTypographyType.typo4,
         showDivider: true,
         dividerAlignment: Alignment.centerLeft,
-        dividerType: GFDividerType.left,
+      //  dividerType: GFDividerType.left,
         dividerColor: GFColors.PRIMARY,
         dividerBorderRadius: BorderRadius.all(
           Radius.circular(0),
-        ),
+        ), heading: 'GF Header Typo1',
       );
+  GFTextFieldWithLabel _buildTextField() =>  const GFTextFieldWithLabel(
+
+  );
 
   Widget _buildRadio() => SizedBox(
         width: 10,

@@ -1,9 +1,9 @@
 // import 'package:flutter/services.dart';
 // import 'package:flutter/widgets.dart';
 // import 'package:flutter/material.dart';
-
+//
 // export 'package:flutter/services.dart' show SmartQuotesType, SmartDashesType;
-
+//
 // class GFTextField extends FormField<String> {
 //   GFTextField({
 //     Key key,
@@ -107,7 +107,7 @@
 //               }
 //               field.didChange(value);
 //             }
-
+//
 //             return Container(
 //               decoration: BoxDecoration(border: Border.all(color: color)),
 //               child: TextField(
@@ -168,20 +168,20 @@
 //           },
 //         );
 //   final TextEditingController controller;
-
+//
 //   @override
 //   _GFTextFieldState createState() => _GFTextFieldState();
 // }
-
+//
 // class _GFTextFieldState extends FormFieldState<String> {
 //   TextEditingController _controller;
-
+//
 //   TextEditingController get _effectiveController =>
 //       widget.controller ?? _controller;
-
+//
 //   @override
 //   GFTextField get widget => super.widget as GFTextField;
-
+//
 //   @override
 //   void initState() {
 //     super.initState();
@@ -191,37 +191,38 @@
 //       widget.controller.addListener(_handleControllerChanged);
 //     }
 //   }
-
+//
 //   @override
 //   void didUpdateWidget(GFTextField oldWidget) {
 //     super.didUpdateWidget(oldWidget);
 //     if (widget.controller != oldWidget.controller) {
 //       oldWidget.controller?.removeListener(_handleControllerChanged);
 //       widget.controller?.addListener(_handleControllerChanged);
-
-//       if (oldWidget.controller != null && widget.controller == null)
+//
+//       if (oldWidget.controller != null && widget.controller == null) {
 //         _controller =
 //             TextEditingController.fromValue(oldWidget.controller.value);
+//       }
 //       if (widget.controller != null) {
 //         setValue(widget.controller.text);
 //         if (oldWidget.controller == null) _controller = null;
 //       }
 //     }
 //   }
-
+//
 //   @override
 //   void dispose() {
 //     widget.controller?.removeListener(_handleControllerChanged);
 //     super.dispose();
 //   }
-
+//
 //   @override
 //   void didChange(String value) {
 //     super.didChange(value);
-
+//
 //     if (_effectiveController.text != value) _effectiveController.text = value;
 //   }
-
+//
 //   @override
 //   void reset() {
 //     super.reset();
@@ -229,7 +230,7 @@
 //       _effectiveController.text = widget.initialValue;
 //     });
 //   }
-
+//
 //   void _handleControllerChanged() {
 //     // Suppress changes that originated from within this class.
 //     //
