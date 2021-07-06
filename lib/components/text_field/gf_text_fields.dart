@@ -28,7 +28,7 @@ class _GfTextFieldState extends State<GfTextField> {
       } else {
         setState(() {
           _isFocused = _focusNode.hasFocus;
-          color = Colors.black38;
+          color = Colors.black26;
         });
       }
     });
@@ -38,29 +38,16 @@ class _GfTextFieldState extends State<GfTextField> {
 
   @override
   Widget build(BuildContext context) => Form(
-        key: _formKey,
-        child: Padding(
-          padding: const EdgeInsets.all(8),
-          child: Stack(children: [
-            _isFocused
-                ? Container(
-                    height: 42,
-                    decoration: const BoxDecoration(
-                      borderRadius: BorderRadius.all(
-                        Radius.zero,
-                      ),
-                      boxShadow: [
-                        BoxShadow(
-                            offset: Offset(1, 2),
-                            color: Colors.blue,
-                            blurRadius: 4,
-                            spreadRadius: 1),
-                      ],
-                    ),
-                  )
-                : const SizedBox.shrink(),
-            Container(
-              height: 45,
+      key: _formKey,
+      child: Padding(
+          padding: const EdgeInsets.all(4),
+          child: Card(
+            shadowColor: _isFocused ? Colors.blue : Colors.white12,
+            elevation: _isFocused ? 3 : 0,
+            color: _isFocused ? const Color(0XFFBFDEFF) : const Color(0XFFFFFF),
+            borderOnForeground: true,
+            child: Padding(
+              padding: const EdgeInsets.all(4),
               child: TextFormField(
                 focusNode: _focusNode,
                 controller: _controller,
@@ -83,7 +70,5 @@ class _GfTextFieldState extends State<GfTextField> {
                         const TextStyle(color: Colors.black38, fontSize: 14)),
               ),
             ),
-          ]),
-        ),
-      );
+          )));
 }

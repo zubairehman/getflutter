@@ -6,6 +6,7 @@ class GFTextFieldWithLabel extends StatelessWidget {
   static const _kGeneralPadding =   EdgeInsets.only(left: 8, right: 8, top: 0, bottom: 1);
 
 
+  // ignore: sort_constructors_first
   const GFTextFieldWithLabel({Key? key}) : super(key: key);
 
   @override
