@@ -102,8 +102,9 @@ class GfTextField extends StatelessWidget {
                 .bodyText2
                 ?.copyWith(fontSize: fontSize, height: 1.5),
             decoration: InputDecoration(
-                contentPadding:
-                    EdgeInsets.only(top: enableLeadingWidget ? 12 : 0),
+                contentPadding: enableLeadingWidget
+                    ? const EdgeInsets.only(top: 12)
+                    : const EdgeInsets.only(top: 32, left: 12),
                 isDense: isDense,
                 prefixIcon: isIcon ? Icon(icon, color: iconColor) : null,
                 suffixIcon: enableClearButton
