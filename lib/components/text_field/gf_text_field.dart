@@ -40,7 +40,7 @@ class GfTextField extends StatelessWidget {
     this.errorText,
     this.counterText = '',
     this.obscureText = false,
-    this.enableLeadingWidget = true,
+    this.enableLeadingWidget = false,
     this.isDense = true,
     this.keyboardType,
     this.textController,
@@ -67,9 +67,13 @@ class GfTextField extends StatelessWidget {
   Widget build(BuildContext context) => Container(
         alignment: AlignmentDirectional.center,
         decoration: BoxDecoration(
-          color: const Color(0xFFf4f7fa),
-          borderRadius: getRadius(),
-        ),
+            color: const Color(0xFFf4f7fa),
+            borderRadius: getRadius(),
+            border: enableLeadingWidget
+                ? Border.all(
+                    color: const Color(0xFFced4da),
+                  )
+                : null),
         child: Padding(
           padding: padding,
           child: TextFormField(
@@ -92,7 +96,12 @@ class GfTextField extends StatelessWidget {
                 ?.copyWith(fontSize: fontSize, height: 1.5),
             decoration: InputDecoration(
                 isDense: isDense,
-                icon: isIcon ? Icon(icon, color: iconColor) : null,
+                icon: isIcon
+                    ? Padding(
+                        padding: const EdgeInsets.only(left: 8),
+                        child: Icon(icon, color: iconColor),
+                      )
+                    : null,
                 suffixIcon: enableClearButton
                     ? IconButton(
                         visualDensity: VisualDensity.compact,
@@ -105,20 +114,19 @@ class GfTextField extends StatelessWidget {
                       )
                     : null,
                 counterText: counterText,
-                contentPadding:
-                    contentPadding.copyWith(top: enableBorder ? 0 : 14),
+                contentPadding: contentPadding.copyWith(
+                    top: enableBorder && !enableLeadingWidget ? 0 : 14),
                 errorText: errorText,
                 hintText: hint,
-                hintStyle: TextStyle(
-                    color: hintColor, fontSize: fontSize, inherit: false),
-                enabledBorder: enableBorder
+                hintStyle: TextStyle(color: hintColor, fontSize: fontSize),
+                enabledBorder: enableBorder && !enableLeadingWidget
                     ? OutlineInputBorder(
                         gapPadding: 0,
                         borderSide: const BorderSide(color: Color(0xFFced4da)),
                         borderRadius: getRadius(),
                       )
                     : InputBorder.none,
-                border: enableBorder
+                border: enableBorder && !enableLeadingWidget
                     ? const OutlineInputBorder()
                     : InputBorder.none),
           ),
@@ -126,12 +134,16 @@ class GfTextField extends StatelessWidget {
       );
 
   // general methods:-----------------------------------------------------------
-  BorderRadius getRadius() => enableLeadingWidget
-      ? const BorderRadius.only(
-          topRight: Radius.circular(4),
-          bottomRight: Radius.circular(4),
-        )
-      : const BorderRadius.all(
-          Radius.circular(4),
-        );
+  BorderRadius getRadius() => const BorderRadius.all(
+        Radius.circular(4),
+      );
+
+  // BorderRadius getRadius() => enableLeadingWidget
+  //     ? const BorderRadius.only(
+  //   topRight: Radius.circular(4),
+  //   bottomRight: Radius.circular(4),
+  // )
+  //     : const BorderRadius.all(
+  //   Radius.circular(4),
+  // );
 }
