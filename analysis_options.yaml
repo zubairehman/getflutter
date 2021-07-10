@@ -1,6 +1,5 @@
 analyzer:
   exclude:
-    - example
     - getwidget_app
     - getwidget-app-kit
     - getwidget-web-kit

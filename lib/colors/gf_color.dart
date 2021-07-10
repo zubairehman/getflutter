@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class GFColors {
   static const Color PRIMARY = Color(0xff04a9f5);
   static const Color SECONDARY = Color(0xff748892);
-  static const Color SUCCESS = Color(0xff10DC60);
+  static const Color SUCCESS = Color(0xff79b530);
   static const Color INFO = Color(0xff3ebfea);
   static const Color WARNING = Color(0xfff4c22b);
   static const Color DANGER = Color(0xfff44236);

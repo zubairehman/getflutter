@@ -1,245 +1,137 @@
-// import 'package:flutter/services.dart';
-// import 'package:flutter/widgets.dart';
-// import 'package:flutter/material.dart';
-//
-// export 'package:flutter/services.dart' show SmartQuotesType, SmartDashesType;
-//
-// class GFTextField extends FormField<String> {
-//   GFTextField({
-//     Key key,
-//     this.controller,
-//     String initialValue,
-//     FocusNode focusNode,
-//     InputDecoration decoration = const InputDecoration(),
-//     TextInputType keyboardType,
-//     TextCapitalization textCapitalization = TextCapitalization.none,
-//     TextInputAction textInputAction,
-//     TextStyle style,
-//     StrutStyle strutStyle,
-//     TextDirection textDirection,
-//     TextAlign textAlign = TextAlign.start,
-//     TextAlignVertical textAlignVertical,
-//     bool autofocus = false,
-//     bool readOnly = false,
-//     ToolbarOptions toolbarOptions,
-//     bool showCursor,
-//     String obscuringCharacter = '•',
-//     bool obscureText = false,
-//     bool autocorrect = true,
-//     SmartDashesType smartDashesType,
-//     SmartQuotesType smartQuotesType,
-//     bool enableSuggestions = true,
-//     bool autovalidate = false,
-//     bool maxLengthEnforced = true,
-//     int maxLines = 1,
-//     int minLines,
-//     bool expands = false,
-//     int maxLength,
-//     ValueChanged<String> onChanged,
-//     GestureTapCallback onTap,
-//     VoidCallback onEditingComplete,
-//     ValueChanged<String> onFieldSubmitted,
-//     FormFieldSetter<String> onSaved,
-//     FormFieldValidator<String> validator,
-//     List<TextInputFormatter> inputFormatters,
-//     bool enabled,
-//     double cursorWidth = 2.0,
-//     double cursorHeight,
-//     Radius cursorRadius,
-//     Color cursorColor,
-//     Color color,
-//     Radius borderradius,
-//     Brightness keyboardAppearance,
-//     EdgeInsets scrollPadding = const EdgeInsets.all(20.0),
-//     bool enableInteractiveSelection = true,
-//     InputCounterWidgetBuilder buildCounter,
-//     ScrollPhysics scrollPhysics,
-//     Iterable<String> autofillHints,
-//     AutovalidateMode autovalidateMode,
-//   })  : assert(initialValue == null || controller == null),
-//         assert(textAlign != null),
-//         assert(autofocus != null),
-//         assert(readOnly != null),
-//         assert(obscuringCharacter != null && obscuringCharacter.length == 1),
-//         assert(obscureText != null),
-//         assert(autocorrect != null),
-//         assert(enableSuggestions != null),
-//         assert(autovalidate != null),
-//         assert(
-//             autovalidate == false ||
-//                 autovalidate == true && autovalidateMode == null,
-//             'autovalidate and autovalidateMode should not be used together.'),
-//         assert(maxLengthEnforced != null),
-//         assert(scrollPadding != null),
-//         assert(maxLines == null || maxLines > 0),
-//         assert(minLines == null || minLines > 0),
-//         assert(
-//           (maxLines == null) || (minLines == null) || (maxLines >= minLines),
-//           "minLines can't be greater than maxLines",
-//         ),
-//         assert(expands != null),
-//         assert(
-//           !expands || (maxLines == null && minLines == null),
-//           'minLines and maxLines must be null when expands is true.',
-//         ),
-//         assert(!obscureText || maxLines == 1,
-//             'Obscured fields cannot be multiline.'),
-//         assert(maxLength == null || maxLength > 0),
-//         assert(enableInteractiveSelection != null),
-//         super(
-//           key: key,
-//           initialValue:
-//               controller != null ? controller.text : (initialValue ?? ''),
-//           onSaved: onSaved,
-//           validator: validator,
-//           enabled: enabled ?? decoration?.enabled ?? true,
-//           autovalidateMode: autovalidate
-//               ? AutovalidateMode.always
-//               : (autovalidateMode ?? AutovalidateMode.disabled),
-//           builder: (FormFieldState<String> field) {
-//             final _GFTextFieldState state = field as _GFTextFieldState;
-//             final InputDecoration effectiveDecoration = (decoration ??
-//                     const InputDecoration())
-//                 .applyDefaults(Theme.of(field.context).inputDecorationTheme);
-//             void onChangedHandler(String value) {
-//               if (onChanged != null) {
-//                 onChanged(value);
-//               }
-//               field.didChange(value);
-//             }
-//
-//             return Container(
-//               decoration: BoxDecoration(border: Border.all(color: color)),
-//               child: TextField(
-//                 controller: state._effectiveController,
-//                 focusNode: focusNode,
-//                 decoration:
-//                     effectiveDecoration.copyWith(errorText: field.errorText) !=
-//                             null
-//                         ? decoration
-//                         : color,
-//                 keyboardType: keyboardType,
-//                 textInputAction: textInputAction,
-//                 style: style,
-//                 strutStyle: strutStyle,
-//                 textAlign: textAlign,
-//                 textAlignVertical: textAlignVertical,
-//                 textDirection: textDirection,
-//                 textCapitalization: textCapitalization,
-//                 autofocus: autofocus,
-//                 toolbarOptions: toolbarOptions,
-//                 readOnly: readOnly,
-//                 showCursor: showCursor,
-//                 obscuringCharacter: obscuringCharacter,
-//                 obscureText: obscureText,
-//                 autocorrect: autocorrect,
-//                 smartDashesType: smartDashesType ??
-//                     (obscureText
-//                         ? SmartDashesType.disabled
-//                         : SmartDashesType.enabled),
-//                 smartQuotesType: smartQuotesType ??
-//                     (obscureText
-//                         ? SmartQuotesType.disabled
-//                         : SmartQuotesType.enabled),
-//                 enableSuggestions: enableSuggestions,
-//                 maxLengthEnforced: maxLengthEnforced,
-//                 maxLines: maxLines,
-//                 minLines: minLines,
-//                 expands: expands,
-//                 maxLength: maxLength,
-//                 onChanged: onChangedHandler,
-//                 onTap: onTap,
-//                 onEditingComplete: onEditingComplete,
-//                 onSubmitted: onFieldSubmitted,
-//                 inputFormatters: inputFormatters,
-//                 enabled: enabled ?? decoration?.enabled ?? true,
-//                 cursorWidth: cursorWidth,
-//                 cursorHeight: cursorHeight,
-//                 cursorRadius: cursorRadius,
-//                 cursorColor: cursorColor,
-//                 scrollPadding: scrollPadding,
-//                 scrollPhysics: scrollPhysics,
-//                 keyboardAppearance: keyboardAppearance,
-//                 enableInteractiveSelection: enableInteractiveSelection,
-//                 buildCounter: buildCounter,
-//                 autofillHints: autofillHints,
-//               ),
-//             );
-//           },
-//         );
-//   final TextEditingController controller;
-//
-//   @override
-//   _GFTextFieldState createState() => _GFTextFieldState();
-// }
-//
-// class _GFTextFieldState extends FormFieldState<String> {
-//   TextEditingController _controller;
-//
-//   TextEditingController get _effectiveController =>
-//       widget.controller ?? _controller;
-//
-//   @override
-//   GFTextField get widget => super.widget as GFTextField;
-//
-//   @override
-//   void initState() {
-//     super.initState();
-//     if (widget.controller == null) {
-//       _controller = TextEditingController(text: widget.initialValue);
-//     } else {
-//       widget.controller.addListener(_handleControllerChanged);
-//     }
-//   }
-//
-//   @override
-//   void didUpdateWidget(GFTextField oldWidget) {
-//     super.didUpdateWidget(oldWidget);
-//     if (widget.controller != oldWidget.controller) {
-//       oldWidget.controller?.removeListener(_handleControllerChanged);
-//       widget.controller?.addListener(_handleControllerChanged);
-//
-//       if (oldWidget.controller != null && widget.controller == null) {
-//         _controller =
-//             TextEditingController.fromValue(oldWidget.controller.value);
-//       }
-//       if (widget.controller != null) {
-//         setValue(widget.controller.text);
-//         if (oldWidget.controller == null) _controller = null;
-//       }
-//     }
-//   }
-//
-//   @override
-//   void dispose() {
-//     widget.controller?.removeListener(_handleControllerChanged);
-//     super.dispose();
-//   }
-//
-//   @override
-//   void didChange(String value) {
-//     super.didChange(value);
-//
-//     if (_effectiveController.text != value) _effectiveController.text = value;
-//   }
-//
-//   @override
-//   void reset() {
-//     super.reset();
-//     setState(() {
-//       _effectiveController.text = widget.initialValue;
-//     });
-//   }
-//
-//   void _handleControllerChanged() {
-//     // Suppress changes that originated from within this class.
-//     //
-//     // In the case where a controller has been passed in to this widget, we
-//     // register this change listener. In these cases, we'll also receive change
-//     // notifications for changes originating from within this class -- for
-//     // example, the reset() method. In such cases, the FormField value will
-//     // already have been set.
-//     if (_effectiveController.text != value)
-//       didChange(_effectiveController.text);
-//   }
-// }
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+
+class GfTextField extends StatelessWidget {
+  final int maxLength;
+  final int maxLines;
+  final double fontSize;
+  final String? initialValue;
+  final String? hint;
+  final String? errorText;
+  final String? counterText;
+  final bool obscureText;
+  final bool isIcon;
+  final bool isDense;
+  final bool autoFocus;
+  final bool enableBorder;
+  final bool? enabled;
+  final bool enableLeadingWidget;
+  final bool enableClearButton;
+  final EdgeInsets padding;
+  final EdgeInsets contentPadding;
+  final Color hintColor;
+  final Color iconColor;
+  final TextInputAction? textInputAction;
+  final TextInputType? keyboardType;
+  final IconData? icon;
+  final FocusNode? focusNode;
+  final TextEditingController? textController;
+  final ValueChanged? onChanged;
+  final ValueChanged? onFieldSubmitted;
+  final VoidCallback? onTap;
+  final VoidCallback? onClearClick;
+
+  const GfTextField({
+    Key? key,
+    this.onTap,
+    this.onClearClick,
+    this.icon,
+    this.hint,
+    this.errorText,
+    this.counterText = '',
+    this.obscureText = false,
+    this.enableLeadingWidget = true,
+    this.isDense = true,
+    this.keyboardType,
+    this.textController,
+    this.isIcon = false,
+    this.padding = const EdgeInsets.all(0),
+    this.contentPadding = const EdgeInsets.only(left: 12),
+    this.hintColor = Colors.grey,
+    this.iconColor = Colors.grey,
+    this.focusNode,
+    this.onFieldSubmitted,
+    this.autoFocus = false,
+    this.textInputAction,
+    this.enableBorder = true,
+    this.onChanged,
+    this.enabled,
+    this.initialValue,
+    this.maxLength = 50,
+    this.maxLines = 1,
+    this.enableClearButton = true,
+    this.fontSize = 12.0,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) => Container(
+        alignment: AlignmentDirectional.center,
+        decoration: BoxDecoration(
+          color: const Color(0xFFf4f7fa),
+          borderRadius: getRadius(),
+        ),
+        child: Padding(
+          padding: padding,
+          child: TextFormField(
+            onTap: onTap,
+            enabled: enabled,
+            initialValue: initialValue,
+            onChanged: onChanged,
+            controller: textController,
+            focusNode: focusNode,
+            onFieldSubmitted: onFieldSubmitted,
+            autofocus: autoFocus,
+            textInputAction: textInputAction,
+            obscureText: obscureText,
+            maxLength: maxLength,
+            maxLines: maxLines,
+            keyboardType: keyboardType,
+            style: Theme.of(context)
+                .textTheme
+                .bodyText2
+                ?.copyWith(fontSize: fontSize, height: 1.5),
+            decoration: InputDecoration(
+                isDense: isDense,
+                icon: isIcon ? Icon(icon, color: iconColor) : null,
+                suffixIcon: enableClearButton
+                    ? IconButton(
+                        visualDensity: VisualDensity.compact,
+                        splashRadius: 8,
+                        icon: const Icon(
+                          Icons.clear,
+                          size: 20,
+                        ),
+                        onPressed: onClearClick,
+                      )
+                    : null,
+                counterText: counterText,
+                contentPadding:
+                    contentPadding.copyWith(top: enableBorder ? 0 : 14),
+                errorText: errorText,
+                hintText: hint,
+                hintStyle: TextStyle(
+                    color: hintColor, fontSize: fontSize, inherit: false),
+                enabledBorder: enableBorder
+                    ? OutlineInputBorder(
+                        gapPadding: 0,
+                        borderSide: const BorderSide(color: Color(0xFFced4da)),
+                        borderRadius: getRadius(),
+                      )
+                    : InputBorder.none,
+                border: enableBorder
+                    ? const OutlineInputBorder()
+                    : InputBorder.none),
+          ),
+        ),
+      );
+
+  // general methods:-----------------------------------------------------------
+  BorderRadius getRadius() => enableLeadingWidget
+      ? const BorderRadius.only(
+          topRight: Radius.circular(4),
+          bottomRight: Radius.circular(4),
+        )
+      : const BorderRadius.all(
+          Radius.circular(4),
+        );
+}
