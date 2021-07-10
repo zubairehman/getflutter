@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:getwidget/colors/gf_color.dart';
 
 class GfTextField extends StatelessWidget {
   final int maxLength;
@@ -21,6 +22,8 @@ class GfTextField extends StatelessWidget {
   final EdgeInsets contentPadding;
   final Color hintColor;
   final Color iconColor;
+  final Color borderColor;
+  final Color backgroundColor;
   final TextInputAction? textInputAction;
   final TextInputType? keyboardType;
   final IconData? icon;
@@ -29,12 +32,12 @@ class GfTextField extends StatelessWidget {
   final ValueChanged? onChanged;
   final ValueChanged? onFieldSubmitted;
   final VoidCallback? onTap;
-  final VoidCallback? onClearClick;
+  final VoidCallback? onClearButtonClick;
 
   const GfTextField({
     Key? key,
     this.onTap,
-    this.onClearClick,
+    this.onClearButtonClick,
     this.icon,
     this.hint,
     this.errorText,
@@ -49,6 +52,8 @@ class GfTextField extends StatelessWidget {
     this.contentPadding = const EdgeInsets.only(left: 12),
     this.hintColor = Colors.grey,
     this.iconColor = Colors.grey,
+    this.borderColor = const Color(0xFFced4da),
+    this.backgroundColor = const Color(0xFFf4f7fa),
     this.focusNode,
     this.onFieldSubmitted,
     this.autoFocus = false,
@@ -65,15 +70,17 @@ class GfTextField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => Container(
+        height: 40,
         alignment: AlignmentDirectional.center,
         decoration: BoxDecoration(
-            color: const Color(0xFFf4f7fa),
-            borderRadius: getRadius(),
-            border: enableLeadingWidget
-                ? Border.all(
-                    color: const Color(0xFFced4da),
-                  )
-                : null),
+          color: backgroundColor,
+          borderRadius: getRadius(),
+          border: enableLeadingWidget
+              ? Border.all(
+                  color: borderColor,
+                )
+              : null,
+        ),
         child: Padding(
           padding: padding,
           child: TextFormField(
@@ -95,13 +102,10 @@ class GfTextField extends StatelessWidget {
                 .bodyText2
                 ?.copyWith(fontSize: fontSize, height: 1.5),
             decoration: InputDecoration(
+                contentPadding:
+                    EdgeInsets.only(top: enableLeadingWidget ? 12 : 0),
                 isDense: isDense,
-                icon: isIcon
-                    ? Padding(
-                        padding: const EdgeInsets.only(left: 8),
-                        child: Icon(icon, color: iconColor),
-                      )
-                    : null,
+                prefixIcon: isIcon ? Icon(icon, color: iconColor) : null,
                 suffixIcon: enableClearButton
                     ? IconButton(
                         visualDensity: VisualDensity.compact,
@@ -110,19 +114,28 @@ class GfTextField extends StatelessWidget {
                           Icons.clear,
                           size: 20,
                         ),
-                        onPressed: onClearClick,
+                        onPressed: onClearButtonClick,
                       )
                     : null,
                 counterText: counterText,
-                contentPadding: contentPadding.copyWith(
-                    top: enableBorder && !enableLeadingWidget ? 0 : 14),
                 errorText: errorText,
                 hintText: hint,
-                hintStyle: TextStyle(color: hintColor, fontSize: fontSize),
+                hintStyle: TextStyle(
+                    color: hintColor, fontSize: fontSize, height: 1.6),
+                focusedBorder: OutlineInputBorder(
+                  gapPadding: 0,
+                  borderSide: const BorderSide(color: GFColors.PRIMARY),
+                  borderRadius: getRadius(),
+                ),
+                errorBorder: OutlineInputBorder(
+                  gapPadding: 0,
+                  borderSide: const BorderSide(color: GFColors.DANGER),
+                  borderRadius: getRadius(),
+                ),
                 enabledBorder: enableBorder && !enableLeadingWidget
                     ? OutlineInputBorder(
                         gapPadding: 0,
-                        borderSide: const BorderSide(color: Color(0xFFced4da)),
+                        borderSide: BorderSide(color: borderColor),
                         borderRadius: getRadius(),
                       )
                     : InputBorder.none,
@@ -137,13 +150,4 @@ class GfTextField extends StatelessWidget {
   BorderRadius getRadius() => const BorderRadius.all(
         Radius.circular(4),
       );
-
-  // BorderRadius getRadius() => enableLeadingWidget
-  //     ? const BorderRadius.only(
-  //   topRight: Radius.circular(4),
-  //   bottomRight: Radius.circular(4),
-  // )
-  //     : const BorderRadius.all(
-  //   Radius.circular(4),
-  // );
 }
