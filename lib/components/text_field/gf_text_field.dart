@@ -59,7 +59,7 @@ class GfTextField extends StatelessWidget {
     this.initialValue,
     this.maxLength = 50,
     this.maxLines = 1,
-    this.enableClearButton = true,
+    this.enableClearButton = false,
     this.fontSize = 12.0,
   }) : super(key: key);
 
