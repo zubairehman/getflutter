@@ -82,6 +82,9 @@ class _GFCheckboxState extends State<GFCheckbox> {
         autofocus: widget.autofocus,
         enabled: enabled,
         child: InkWell(
+          highlightColor: GFColors.TRANSPARENT,
+          hoverColor: GFColors.TRANSPARENT,
+          splashColor: GFColors.TRANSPARENT,
           canRequestFocus: enabled,
           onTap: widget.onChanged != null
               ? () {

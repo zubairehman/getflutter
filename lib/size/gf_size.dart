@@ -1,6 +1,9 @@
 /// [GFSize] is used to change the size of the widget.
 class GFSize {
   /// [GFSize.SMALL] is used for small size widget
+  static const double EXTRA_SMALL = 20;
+
+  /// [GFSize.SMALL] is used for small size widget
   static const double SMALL = 30;
 
   /// Default size if [GFSize.MEDIUM] is used for medium size widget

@@ -17,7 +17,7 @@ class GFTypography extends StatelessWidget {
     this.subHeadingColor,
     this.dividerAlignment,
     this.dividerColor,
-    this.showDivider = true,
+    this.showDivider = false,
     this.dividerWidth,
     this.dividerHeight,
     this.backgroundImage,
@@ -159,7 +159,7 @@ class GFTypography extends StatelessWidget {
   Widget _buildHeading(double? fontSize) => heading != null
       ? Expanded(
           child: Padding(
-            padding: EdgeInsets.only(left: 16),
+            padding: const EdgeInsets.only(left: 16),
             child: Text(
               heading!,
               style: TextStyle(
@@ -175,7 +175,7 @@ class GFTypography extends StatelessWidget {
 
   Widget _buildSubHeading(double? fontSize) => subHeading != null
       ? Padding(
-          padding: EdgeInsets.only(left: 22),
+          padding: const EdgeInsets.only(left: 22),
           child: Text(
             subHeading!,
             style: TextStyle(
