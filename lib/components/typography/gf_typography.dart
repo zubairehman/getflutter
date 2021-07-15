@@ -131,7 +131,7 @@ class GFTypography extends StatelessWidget {
             : null,
       ),
       child: Padding(
-        padding: const EdgeInsets.only(top: 16),
+        padding: const EdgeInsets.only(top: 8),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
@@ -149,6 +149,7 @@ class GFTypography extends StatelessWidget {
             dividerType == GFDividerPosition.bottom
                 ? _buildHeadingDivider(dWidth, dHeight)
                 : Container(),
+            const SizedBox(height: 12),
             _buildDivider()
           ],
         ),
@@ -214,6 +215,6 @@ class GFTypography extends StatelessWidget {
   Widget _buildIcon() => icon ?? Container();
 
   Widget _buildDivider() => dividerType == GFDividerPosition.left
-      ? const Divider(height: 32)
+      ? const Divider(height: 0)
       : Container();
 }
