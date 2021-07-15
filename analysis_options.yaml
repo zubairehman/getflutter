@@ -1,6 +1,5 @@
 analyzer:
   exclude:
-    - getwidget_app
     - getwidget-app-kit
     - getwidget-web-kit
     - test/.test_coverage.dart

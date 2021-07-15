@@ -19,8 +19,8 @@ class GFTable extends StatefulWidget {
     this.isLandscapeInMobileView = false,
     this.gridLineColor = const Color(0x0D000000),
     this.headerColor = const Color(0xfff2f2f2),
-    this.gridLinesVisibility = GridLinesVisibility.both,
-    this.headerGridLinesVisibility = GridLinesVisibility.vertical,
+    this.gridLinesVisibility = GridLinesVisibility.horizontal,
+    this.headerGridLinesVisibility = GridLinesVisibility.horizontal,
     this.columnWidthMode = ColumnWidthMode.fill,
   }) : super(key: key);
 
@@ -114,20 +114,20 @@ class _SortingDataGridState extends State<GFTable> {
 
   @override
   Widget build(BuildContext context) => SfDataGridTheme(
-        data: SfDataGridThemeData(
-          gridLineColor: widget.gridLineColor,
-          headerColor: widget.headerColor,
-        ),
-        child: SfDataGrid(
-          source: widget.source,
-          columns: widget.columns,
-          gridLinesVisibility: widget.gridLinesVisibility,
-          headerGridLinesVisibility: widget.headerGridLinesVisibility,
-          columnWidthMode: widget.columnWidthMode,
-          allowSorting: widget.allowSorting,
-          allowMultiColumnSorting: widget.allowMultiSorting,
-          allowTriStateSorting: widget.allowTriStateSorting,
-          showSortNumbers: widget.showSortNumbers,
-        ),
-      );
+    data: SfDataGridThemeData(
+      gridLineColor: widget.gridLineColor,
+      headerColor: widget.headerColor,
+    ),
+    child: SfDataGrid(
+      source: widget.source,
+      columns: widget.columns,
+      gridLinesVisibility: widget.gridLinesVisibility,
+      headerGridLinesVisibility: widget.headerGridLinesVisibility,
+      columnWidthMode: widget.columnWidthMode,
+      allowSorting: widget.allowSorting,
+      allowMultiColumnSorting: widget.allowMultiSorting,
+      allowTriStateSorting: widget.allowTriStateSorting,
+      showSortNumbers: widget.showSortNumbers,
+    ),
+  );
 }
